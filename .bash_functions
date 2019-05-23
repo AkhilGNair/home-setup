@@ -49,15 +49,6 @@ pyclean () {
         find . -type d -name ".pytest_cache" -delete
 }
 
-# kubectl functions
-kgc () {
-  kubectl config get-contexts
-}
-
-ksc () {
-  kubectl config use-context $(kgc | grep $1 | awk '{print $2}')
-}
-
 # Invoke sh on a temp docker image - useful for broken builds
 cacherun () {
   docker run --rm -it $1 sh

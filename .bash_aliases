@@ -21,7 +21,7 @@ alias dbuild='docker build --rm -f "Dockerfile" -t $(basename `pwd`):$(cat Versi
 # git stuff
 alias gs='git status'
 alias gd='git diff'
-alias gpm='git pull origin master'G
+alias gpm='git pull origin master'
 
 # kubectl stuff
 alias kc='kubectl'
