@@ -6,10 +6,29 @@
 # # Fix terminal buffer issues in docker exec
 # -e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
 
+# Source various dot files aliases if they exist
+if [ -f ~/.bashrc ]; then . ~/.bashrc; fi 
+if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi 
+
 # Environment variables
-HISTFILESIZE=10000000
 export PYTHONDONTWRITEBYTECODE=true
-export BYOBU_PREFIX=/usr/local
+
+# HISTORY
+# Eternal history
+export HISTSIZE=
+export HISTFILESIZE=
+# Don't record some commands
+export HISTIGNORE="ls:bg:fg:history"
+# Use standard ISO 8601 timestamp
+export HISTTIMEFORMAT="%F %T "
+# Avoid duplicate entries
+export HISTCONTROL="ignoreboth"
+# Save multi-line commands as one command
+shopt -s cmdhist
+# Append to the history file when exiting
+shopt -s histappend
+# At each prompt, append to history
+# PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 
 # Command line default options
 export GREP_OPTIONS='--color=auto --exclude=*.pyc --exclude-dir=.git'
@@ -20,28 +39,14 @@ if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
   source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
 fi
 
-# # Source extra bash completion
-# if [ -f $(brew --prefix)/etc/bash_completion ]; then
-# . $(brew --prefix)/etc/bash_completion
-# fi
+# Source extra bash completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+. $(brew --prefix)/etc/bash_completion
+fi
 
 # Source git bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-# Source various dot files aliases if they exist
-if [ -f ~/.bashrc ]; then . ~/.bashrc; fi 
-if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi 
-
 # Autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/akhilnair/Downloads/google-cloud-sdk/path.bash.inc' ]; 
-    then . '/Users/akhilnair/Downloads/google-cloud-sdk/path.bash.inc'; 
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/akhilnair/Downloads/google-cloud-sdk/completion.bash.inc' ]; 
-    then . '/Users/akhilnair/Downloads/google-cloud-sdk/completion.bash.inc'; 
-fi
 

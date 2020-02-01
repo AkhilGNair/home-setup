@@ -42,15 +42,18 @@ if echo “$0” | grep -q 'bash'; then
     complete -F _complete_ssh_hosts ssh
 fi
 
-# Remove python compiled files
-pyclean () {
-        find . -type f -name "*.py[co]" -delete
-        find . -type d -name "__pycache__" -delete
-        find . -type d -name ".pytest_cache" -delete
+# Quick and dirty, tabulate over a prefix regex
+function unique_prefix {
+    grep -Inro $1 | cut -d":" -f3 | sort -u
 }
 
-# Invoke sh on a temp docker image - useful for broken builds
-cacherun () {
-  docker run --rm -it $1 sh
+# Go to a random tmp dir
+function tempdir {
+    temp_dir=$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 13)
+    mkdir -p /tmp/$temp_dir
+    cd /tmp/$temp_dir
 }
 
+# Watch k8s resource type
+kwatch { watch kubectl get $1 -o wide ; }
+kenter () { kubectl exec -it $1 ${2:-bash} ; }
