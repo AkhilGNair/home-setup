@@ -34,12 +34,18 @@ fi
 
 # Source git bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f /usr/share/google-cloud-sdk/completion.bash.inc ] && . /usr/share/google-cloud-sdk/completion.bash.inc
 
 # Autojump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+[ -f /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
 
 # Git branch name
 parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(parse_git_branch)\[\033[00m\] $ "
+
+# Tilix Error - https://gnunn1.github.io/tilix-web/manual/vteconfig/ 
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi

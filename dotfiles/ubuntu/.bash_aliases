@@ -1,6 +1,6 @@
 alias venvh='source venv/bin/activate'
 
-alias R='r --no-save --silent'
+alias R='R --no-save --silent'
 alias cat-pub-key='cat $HOME/.ssh/id_rsa.pub'
 alias vim-ssh-config="vim $HOME/.ssh/$1-config"
 
@@ -23,6 +23,9 @@ alias cta='cat'
 alias gs='git status'
 alias gd='git diff'
 alias gpm='git pull origin master'
+
+# docker stuff
+alias dockerps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.CreatedAt}}\t{{.Status}}"'
 
 # kubectl stuff
 alias k='kubectl'
