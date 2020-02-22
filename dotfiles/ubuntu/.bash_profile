@@ -5,6 +5,39 @@
 if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
 if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
 
+# Add git branch to PS1
+if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
+  __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
+  GIT_PROMPT_ONLY_IN_REPO=1
+  source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
+fi
+
+# PROMPT
+PROMPT_COMMAND=__prompt_command
+__prompt_command() {
+	local errcode=$?
+	local arrow=">\[\e[m\]"
+	local nope="\e[0m\[\e[m\]"
+	local git=""
+	if [ $errcode != 0 ]; then
+		arrow="\[\e[31m\]$arrow"
+	else
+		arrow="\[\e[32m\]$arrow"
+	fi
+
+	GIT_PS1_SHOWDIRTYSTATE=true
+	GIT_PS1_SHOWSTASHSTATE=true
+	GIT_PS1_SHOWUNTRACKEDFILES=true
+	GIT_PS1_SHOWUPSTREAM="auto"
+	GIT_PS1_DESCRIBE_STYLE="branch"
+	GIT_PS1_SHOWCOLORHINTS=true
+        git=$(__git_ps1 "on \[\e[36m\]%s\[\e[m\]" 2> /dev/null)
+
+	PS1=""
+	type __prompt_command_local &> /dev/null && __prompt_command_local
+	PS1="$nope\[\e[34m\]\u\[\e[m\] at \[\e[35m\]\h\[\e[m\] in \[\e[33m\]\w\[\e[m\] $git$PS1\n$arrow "
+}
+
 # Environment variables
 export PYTHONDONTWRITEBYTECODE=true
 
@@ -25,13 +58,6 @@ shopt -s histappend
 # At each prompt, append to history
 # PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 
-# Add git branch to PS1
-if [ -f "/usr/local/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-  __GIT_PROMPT_DIR="/usr/local/opt/bash-git-prompt/share"
-  GIT_PROMPT_ONLY_IN_REPO=1
-  source "/usr/local/opt/bash-git-prompt/share/gitprompt.sh"
-fi
-
 # Source git bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 [ -f /usr/share/google-cloud-sdk/completion.bash.inc ] && . /usr/share/google-cloud-sdk/completion.bash.inc
@@ -39,13 +65,8 @@ fi
 # Autojump
 [ -f /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
 
-# Git branch name
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$(parse_git_branch)\[\033[00m\] $ "
-
 # Tilix Error - https://gnunn1.github.io/tilix-web/manual/vteconfig/ 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
+
