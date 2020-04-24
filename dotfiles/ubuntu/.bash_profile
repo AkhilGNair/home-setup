@@ -32,10 +32,12 @@ __prompt_command() {
 	GIT_PS1_DESCRIBE_STYLE="branch"
 	GIT_PS1_SHOWCOLORHINTS=true
         git=$(__git_ps1 "on \[\e[36m\]%s\[\e[m\]" 2> /dev/null)
+	
+	venv=${VIRTUAL_ENV+($(basename $VIRTUAL_ENV)) }
 
 	PS1=""
 	type __prompt_command_local &> /dev/null && __prompt_command_local
-	PS1="$nope\[\e[34m\]\u\[\e[m\] at \[\e[35m\]\h\[\e[m\] in \[\e[33m\]\w\[\e[m\] $git$PS1\n$arrow "
+	PS1="$venv$nope\[\e[34m\]\u\[\e[m\] at \[\e[35m\]\h\[\e[m\] in \[\e[33m\]\w\[\e[m\] $git$PS1\n$arrow "
 }
 
 # Environment variables
