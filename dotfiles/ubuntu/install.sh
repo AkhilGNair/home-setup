@@ -11,5 +11,8 @@ mv ${HOME}/bkp-dotfiles/.bash_history ${HOME} || true
 mv ${HOME}/.gitconfig ${HOME}/bkp-dotfiles 2>/dev/null || true
 cp ${HOME}/repos/home-setup/dotfiles/ubuntu/.gitconfig ${HOME}
 
+# Install kakrc
+ln -s $(pwd)/kak/ $XDG_CONFIG_HOME/kak
+
 source "${HOME}/.bashrc"
 

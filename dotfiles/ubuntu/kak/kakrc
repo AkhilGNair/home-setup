@@ -1,0 +1,11 @@
+addhl global/ number-lines -hlcursor
+
+# Python
+hook global WinSetOption filetype=python %{
+    set-option window formatcmd 'isort -rc - | black -q -'
+    hook buffer BufWritePre .* %{format}
+}
+
+# Add write-quit
+alias global x write-quit
+
