@@ -28,6 +28,8 @@
   lol = log --oneline --graph --decorate
   cm = checkout master
   pub = push -u origin HEAD
+  can = commit --amend --no-edit
+  pf = push --force
 
 [pull]
   rebase = true
