@@ -1,0 +1,3 @@
+[submodule "dotfiles/ubuntu/kak/kakoune"]
+	path = dotfiles/ubuntu/kak/kakoune
+	url = https://github.com/mawww/kakoune

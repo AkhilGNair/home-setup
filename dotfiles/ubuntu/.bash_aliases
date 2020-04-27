@@ -3,6 +3,7 @@ alias venvh='source venv/bin/activate'
 alias R='R --no-save --silent'
 alias cat-pub-key='cat $HOME/.ssh/id_rsa.pub'
 alias vim-ssh-config="vim $HOME/.ssh/$1-config"
+alias kak-edit-config="kak ~/.config/kak/kakrc"
 
 # Mac copy and paste
 alias pbcopy='xsel --clipboard --input'
