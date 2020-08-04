@@ -58,7 +58,7 @@ shopt -s cmdhist
 # Append to the history file when exiting
 shopt -s histappend
 # At each prompt, append to history
-# PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
+PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 
 # Source git bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
@@ -66,9 +66,3 @@ shopt -s histappend
 
 # Autojump
 [ -f /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
-
-# Tilix Error - https://gnunn1.github.io/tilix-web/manual/vteconfig/ 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
-

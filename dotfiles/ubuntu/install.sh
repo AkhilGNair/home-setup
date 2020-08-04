@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/bash -eux
 
 msg() { printf "\033[1;32m :: %s\n\033[0m" "$1"; }
 
@@ -16,23 +16,17 @@ msg "Installing git files"
 mv ${HOME}/.gitconfig ${HOME}/bkp-dotfiles 2>/dev/null || true
 cp ${repo}/dotfiles/ubuntu/.gitconfig ${HOME}
 
-# Install kakrc
-msg "Installing kak"
-# Thanks github.com/dryvenn
-# Compile from submodule
-make -j $(nproc) -C kak/kakoune/src &> /dev/null
-# Link binary
-mkdir -p ~/.local/bin ~/.config/kak
-ln -snf $(pwd)/kak/kakoune/src/kak ~/.local/bin/kak
-# Link kakrc
-ln -sf $(pwd)/kak/kakrc ~/.config/kak
+cp ${repo}/dotfiles/ubuntu/.inputrc ${HOME}
 
-echo "Installing tmux"
+# Install tmux
 msg "Installing tmux files"
-# Install tmux plugin manager
-cp ${repo}/dotfiles/ubuntu/.tmux.conf ${HOME}
-~/.tmux/plugins/tpm/bin/install_plugins
-~/.tmux/plugins/tpm/bin/update_plugins all
+sudo apt install tmux -y
+
+pushd $HOME
+git clone https://github.com/gpakosz/.tmux.git || true
+ln -s -f .tmux/.tmux.conf
+cp ${repo}/dotfiles/ubuntu/.tmux.conf.local ${HOME}
+popd
 
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"
