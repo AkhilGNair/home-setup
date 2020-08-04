@@ -4,6 +4,10 @@ msg() { printf "\033[1;32m :: %s\n\033[0m" "$1"; }
 
 repo=$(git rev-parse --show-toplevel)
 
+msg "Installing programs"
+sudo apt update && sudo apt install -y \
+    keychain
+
 # Install .bash* files, replace history
 msg "Installing bash files"
 mkdir -p "${HOME}/bkp-dotfiles"
