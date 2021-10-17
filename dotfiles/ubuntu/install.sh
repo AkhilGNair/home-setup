@@ -23,6 +23,25 @@ cp ${repo}/dotfiles/ubuntu/.tmux.conf ${HOME}
 ~/.tmux/plugins/tpm/bin/install_plugins
 ~/.tmux/plugins/tpm/bin/update_plugins all
 
+echo "Installing oh-my-posh"
+wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
+chmod +x ~/.local/bin/oh-my-posh
+
+echo "Getting themes"
+mkdir ~/.poshthemes
+wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
+unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
+chmod u+rw ~/.poshthemes/*.json
+rm ~/.poshthemes/themes.zip
+
+echo "Installing a font with glpyhs"
+mkdir -p ~/.local/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -O /tmp/font.zip
+unzip /tmp/font.zip -d ~/.local/share/fonts
+fc-cache -fv
+rm /tmp/font.zip
+
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"
 
+echo "Remember to set the font for the terminal program!"

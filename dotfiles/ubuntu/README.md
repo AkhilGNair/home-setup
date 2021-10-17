@@ -1,18 +1,22 @@
 # Ubuntu dotfiles
 
-Install dotfiles
+Run `./install.sh`.
 
-```
-mkdir -p ${HOME}/bkp-dotfiles
+The old dotfiles are backed up to `~/bkp-dotfiles` just in case. 
 
-# Install .bash* files, replace history
-mv ${HOME}/.bash* ${HOME}/bkp-dotfiles
-cp ${HOME}/repos/home-setup/dotfiles/ubuntu/.bash* ${HOME}
-mv ${HOME}/bkp-dotfiles/.bash_history ${HOME}
+# Fonts
 
-# Install .gitconfig
-mv ${HOME}/.gitconfig ${HOME}/bkp-dotfiles 2>/dev/null || true
-cp ${HOME}/repos/home-setup/dotfiles/ubuntu/.gitconfig ${HOME}
+The Nerd Font `Caskaydia Cove` is used from https://github.com/ryanoasis/nerd-fonts.
 
-reload
+To make the prompt display unicode characters on the terminal, the font needs to be updated in the terminal program.
+
+Same for vscode - in settings add
+
+```{json}
+{
+    ...
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'CaskaydiaCove NF'",
+    ...
+}
 ```
