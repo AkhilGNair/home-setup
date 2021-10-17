@@ -1,4 +1,4 @@
-#!/bin/bash -eux
+#!/bin/bash -eu
 
 msg() { printf "\033[1;32m :: %s\n\033[0m" "$1"; }
 
@@ -38,20 +38,24 @@ wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-
 chmod +x ~/.local/bin/oh-my-posh
 
 echo "Getting themes"
-mkdir ~/.poshthemes
+mkdir -p ~/.poshthemes
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
-unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
+unzip -o ~/.poshthemes/themes.zip -d ~/.poshthemes
 chmod u+rw ~/.poshthemes/*.json
 rm ~/.poshthemes/themes.zip
 
 echo "Installing a font with glpyhs"
 mkdir -p ~/.local/share/fonts
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -O /tmp/font.zip
-unzip /tmp/font.zip -d ~/.local/share/fonts
+unzip -o /tmp/font.zip -d ~/.local/share/fonts
 fc-cache -fv
 rm /tmp/font.zip
 
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"
 
-echo "Remember to set the font for the terminal program!"
+echo ""
+
+msg "--------"
+msg "Remember to set the font for the terminal program!"
+msg "--------"
