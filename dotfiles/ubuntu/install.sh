@@ -16,17 +16,6 @@ msg "Installing git files"
 mv ${HOME}/.gitconfig ${HOME}/bkp-dotfiles 2>/dev/null || true
 cp ${repo}/dotfiles/ubuntu/.gitconfig ${HOME}
 
-# Install kakrc
-msg "Installing kak"
-# Thanks github.com/dryvenn
-# Compile from submodule
-make -j $(nproc) -C kak/kakoune/src &> /dev/null
-# Link binary
-mkdir -p ~/.local/bin ~/.config/kak
-ln -snf $(pwd)/kak/kakoune/src/kak ~/.local/bin/kak
-# Link kakrc
-ln -sf $(pwd)/kak/kakrc ~/.config/kak
-
 echo "Installing tmux"
 msg "Installing tmux files"
 # Install tmux plugin manager
