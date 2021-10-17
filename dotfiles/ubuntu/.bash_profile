@@ -1,3 +1,6 @@
+# Add default ssh key to keychain
+eval $(keychain --eval id_rsa)
+
 # # Fix terminal buffer issues in docker exec
 # -e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
 

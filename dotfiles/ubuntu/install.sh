@@ -1,8 +1,12 @@
-#!/bin/bash -eu
+#!/bin/bash -eux
 
 msg() { printf "\033[1;32m :: %s\n\033[0m" "$1"; }
 
 repo=$(git rev-parse --show-toplevel)
+
+msg "Installing programs"
+sudo apt update && sudo apt install -y \
+    keychain
 
 # Install .bash* files, replace history
 msg "Installing bash files"
@@ -16,12 +20,18 @@ msg "Installing git files"
 mv ${HOME}/.gitconfig ${HOME}/bkp-dotfiles 2>/dev/null || true
 cp ${repo}/dotfiles/ubuntu/.gitconfig ${HOME}
 
-echo "Installing tmux"
+# Faster reverse search
+cp ${repo}/dotfiles/ubuntu/.inputrc ${HOME}
+
 msg "Installing tmux files"
-# Install tmux plugin manager
-cp ${repo}/dotfiles/ubuntu/.tmux.conf ${HOME}
-~/.tmux/plugins/tpm/bin/install_plugins
-~/.tmux/plugins/tpm/bin/update_plugins all
+sudo apt install tmux -y
+
+# tmux config
+pushd $HOME
+git clone https://github.com/gpakosz/.tmux.git || true
+ln -s -f .tmux/.tmux.conf
+cp ${repo}/dotfiles/ubuntu/.tmux.conf.local ${HOME}
+popd
 
 echo "Installing oh-my-posh"
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
