@@ -16,6 +16,16 @@ fi
 # Environment variables
 export PYTHONDONTWRITEBYTECODE=true
 
+# Tilix Error - https://gnunn1.github.io/tilix-web/manual/vteconfig/
+# May need to run
+#
+#    sudo ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+#
+# To create the initial symlink file
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
 # HISTORY
 # Eternal history
 export HISTSIZE=
@@ -30,8 +40,6 @@ export HISTCONTROL="ignoreboth"
 shopt -s cmdhist
 # Append to the history file when exiting
 shopt -s histappend
-# At each prompt, append to history
-PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 
 # Source git bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
@@ -40,10 +48,11 @@ PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
 # Autojump
 [ -f /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
 
-# Tilix Error - https://gnunn1.github.io/tilix-web/manual/vteconfig/ 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
-
 # oh-my-posh shell
-eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/mt.omp.json)"
+eval "$(oh-my-posh --init --shell bash --config ~/prompt/akhil.omp.json)"
+
+# At each prompt, append to history
+# Should go with the history section, but seems to work best after omp and j
+PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
+
+

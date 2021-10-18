@@ -10,10 +10,15 @@ sudo apt update && sudo apt install -y \
 
 # Install .bash* files, replace history
 msg "Installing bash files"
+
+# Backup all old bash files
 mkdir -p "${HOME}/bkp-dotfiles"
 mv ${HOME}/.bash* ${HOME}/bkp-dotfiles 2>/dev/null || true
+# Install the new ones
 cp ${repo}/dotfiles/ubuntu/.bash* ${HOME}
-mv ${HOME}/bkp-dotfiles/.bash_history ${HOME} || true
+# Replace the important old files if they existed
+cp ${HOME}/bkp-dotfiles/.bash_history ${HOME} || true
+cp ${HOME}/bkp-dotfiles/.bash_profile.local ${HOME} || true
 
 # Install .gitconfig
 msg "Installing git files"
@@ -51,11 +56,15 @@ unzip -o /tmp/font.zip -d ~/.local/share/fonts
 fc-cache -fv
 rm /tmp/font.zip
 
+echo "Installing custom prompt theme"
+cp -r ${repo}/dotfiles/ubuntu/prompt ${HOME}
+
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"
 
 echo ""
-
 msg "--------"
 msg "Remember to set the font for the terminal program!"
 msg "--------"
+echo ""
+
