@@ -5,6 +5,15 @@ function venv {
         source $HOME/virtualenvs/$1/bin/activate
 }
 
+# Make a python virtual environment
+function make_venv {
+    venv_name=${PWD##*/}
+    python3 -m venv $HOME/virtualenvs/${venv_name}
+    echo ":: Created virtualenv '${venv_name}'"
+    venv
+    echo ":: Loaded virtualenv '${venv_name}'"
+}
+
 # Reload the bash profile
 function reload { source ~/.bash_profile; }
 
@@ -12,6 +21,20 @@ function reload { source ~/.bash_profile; }
 function unique_prefix {
     grep -Inro $1 | cut -d":" -f3 | sort -u
 }
+
+# Quick attempt to decode a jwt
+function jwt {
+    sed 's/\./\n/g' <<< $(cut -d. -f1,2 <<< $1) | base64 --decode | jq
+}
+
+ # Pretty print json file
+ function pretty-json {
+     python -c "import json;print(json.dumps(json.load(open(\"$1\", \"r\")), indent=2))"
+ }
+
+ function pathnl {
+    echo $PATH | sed "s/:/\n/g"
+ }
 
 # Go to a random tmp dir
 function tempdir {

@@ -8,6 +8,11 @@ eval $(keychain --eval id_rsa)
 if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
 if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
 
+# Source any local machine config
+if [ -f "$HOME/.bash_profile.local" ]; then
+    source "$HOME/.bash_profile.local"
+fi
+
 # Environment variables
 export PYTHONDONTWRITEBYTECODE=true
 
