@@ -54,6 +54,18 @@
           }
         },
         {
+          "type": "python",
+          "style": "plain",
+          "powerline_symbol": "\uE0B0",
+          "foreground": "#ff0088",
+          "properties": {
+            "prefix": "<##ff0088>(</>\uE235 ",
+            "postfix": "<##ff0088>) </>",
+            "display_mode": "environment",
+            "display_version": false
+          }
+        },
+        {
           "type": "text",
           "style": "plain",
           "foreground": "#D75F00",
