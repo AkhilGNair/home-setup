@@ -1,0 +1,37 @@
+" Don't be vi
+set nocompatible
+
+syntax enable
+
+" Newline indentation based on filetype
+set autoindent
+filetype plugin on
+filetype plugin indent on
+
+set number                     " Show current line number
+set relativenumber             " Show relative line numbers
+
+" Open split tabs on the right
+:set splitright
+:set splitbelow
+
+" Finding Files
+set path+=**
+set wildmenu
+set wildmode=longest:full,full
+
+" Window navigation
+nnoremap <C-left> <C-w>h
+nnoremap <C-down> <C-w>j
+nnoremap <C-up> <C-w>k
+nnoremap <C-right> <C-w>l
+
+noremap <C-S-up> <C-w>+
+noremap <C-S-down> <C-w>-
+
+" Window navigation in a terminal split
+tnoremap <C-left> <C-w>h
+tnoremap <C-down> <C-w>j
+tnoremap <C-up> <C-w>k
+tnoremap <C-right> <C-w>l
+
