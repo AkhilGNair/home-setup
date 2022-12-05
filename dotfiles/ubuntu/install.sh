@@ -39,6 +39,7 @@ cp ${repo}/dotfiles/ubuntu/.tmux.conf.local ${HOME}
 popd
 
 echo "Installing oh-my-posh"
+mkdir -p ~/.local/bin
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
 chmod +x ~/.local/bin/oh-my-posh
 
