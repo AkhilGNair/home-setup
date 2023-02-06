@@ -22,6 +22,8 @@
   summary=true
 
 [alias]
+  main-branch = !echo $(git symbolic-ref refs/remotes/origin/HEAD --short) | awk -F'/' '{ print $2 }'
+  cm = "!f(){ git checkout $(git main-branch) $@;}; f"
   s = status
   b = branch -v
   d = diff
@@ -29,7 +31,6 @@
   unstage = reset HEAD
   uncommit = reset --soft HEAD^
   lol = log --oneline --graph --decorate
-  cm = checkout master
   pub = push -u origin HEAD
   can = commit --amend --no-edit
   pf = push --force
