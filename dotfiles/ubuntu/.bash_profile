@@ -1,9 +1,6 @@
 # Add default ssh key to keychain
 eval $(keychain --eval id_rsa)
 
-# # Fix terminal buffer issues in docker exec
-# -e COLUMNS=$COLUMNS -e LINES=$LINES -e TERM=$TERM
-
 # Source various dot files aliases if they exist
 if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
 if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
@@ -15,16 +12,6 @@ fi
 
 # Environment variables
 export PYTHONDONTWRITEBYTECODE=true
-
-# Tilix Error - https://gnunn1.github.io/tilix-web/manual/vteconfig/
-# May need to run
-#
-#    sudo ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
-#
-# To create the initial symlink file
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
 
 # HISTORY
 # Eternal history
@@ -49,10 +36,14 @@ shopt -s histappend
 [ -f /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
 
 # oh-my-posh shell
-eval "$(oh-my-posh --init --shell bash --config ~/prompt/akhil.omp.json)"
+eval "$(oh-my-posh --init --shell bash --config ${HOME}/.prompt/catppuccin_frappe.omp.json)"
 
 # At each prompt, append to history
 # Should go with the history section, but seems to work best after omp and j
-PROMPT_COMMAND="$PROMPT_COMMAND; history -a"
-
+if [ -z "$PROMPT_COMMAND" ];
+then
+    PROMPT_COMMAND="history -a"
+else
+    PROMPT_COMMAND="$PROMPT_COMMAND history -a"
+fi
 

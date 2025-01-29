@@ -43,13 +43,6 @@ mkdir -p ~/.local/bin
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
 chmod +x ~/.local/bin/oh-my-posh
 
-echo "Getting themes"
-mkdir -p ~/.poshthemes
-wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
-unzip -o ~/.poshthemes/themes.zip -d ~/.poshthemes
-chmod u+rw ~/.poshthemes/*.json
-rm ~/.poshthemes/themes.zip
-
 echo "Installing a font with glpyhs"
 mkdir -p ~/.local/share/fonts
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -O /tmp/font.zip
@@ -58,7 +51,8 @@ fc-cache -fv
 rm /tmp/font.zip
 
 echo "Installing custom prompt theme"
-cp -r ${repo}/dotfiles/ubuntu/prompt ${HOME}
+mkdir ${HOME}/.prompt/
+cp ${repo}/dotfiles/ubuntu/catppuccin_frappe.omp.json ${HOME}/.prompt/
 
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"
