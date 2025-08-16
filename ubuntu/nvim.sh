@@ -1,0 +1,11 @@
+#!/bin/bash -eu
+
+echo "Installing nvim"
+
+sudo apt remove neovim
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt-get update
+sudo apt-get install -y neovim fd-find ripgrep
+
+git clone git@github.com:AkhilGNair/nvim.git $HOME/.config/nvim
+

@@ -6,7 +6,7 @@ repo=$(git rev-parse --show-toplevel)
 
 msg "Installing programs"
 sudo apt update && sudo apt install -y \
-    keychain
+    keychain pass unzip
 
 # Install .bash* files, replace history
 msg "Installing bash files"
@@ -28,27 +28,13 @@ cp ${repo}/dotfiles/ubuntu/.gitconfig ${HOME}
 # Faster reverse search
 cp ${repo}/dotfiles/ubuntu/.inputrc ${HOME}
 
-msg "Installing tmux files"
-sudo apt install tmux -y
-
-# tmux config
-pushd $HOME
-git clone https://github.com/gpakosz/.tmux.git || true
-ln -s -f .tmux/.tmux.conf
-cp ${repo}/dotfiles/ubuntu/.tmux.conf.local ${HOME}
-popd
+# Install nvm and node
+PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
 
 echo "Installing oh-my-posh"
 mkdir -p ~/.local/bin
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O ~/.local/bin/oh-my-posh
 chmod +x ~/.local/bin/oh-my-posh
-
-echo "Getting themes"
-mkdir -p ~/.poshthemes
-wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
-unzip -o ~/.poshthemes/themes.zip -d ~/.poshthemes
-chmod u+rw ~/.poshthemes/*.json
-rm ~/.poshthemes/themes.zip
 
 echo "Installing a font with glpyhs"
 mkdir -p ~/.local/share/fonts
@@ -58,7 +44,8 @@ fc-cache -fv
 rm /tmp/font.zip
 
 echo "Installing custom prompt theme"
-cp -r ${repo}/dotfiles/ubuntu/prompt ${HOME}
+mkdir -p ${HOME}/.prompt/
+cp ${repo}/dotfiles/ubuntu/catppuccin_frappe.omp.json ${HOME}/.prompt/
 
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"

@@ -1,3 +1,6 @@
+# do not bell on tab-completion
+set bell-style none
+
 "\e[1;5C": forward-word
 "\e[1;5D": backward-word
 

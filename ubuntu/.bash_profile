@@ -3,7 +3,6 @@ eval $(keychain --eval id_rsa)
 
 # Source various dot files aliases if they exist
 if [ -f ~/.bash_functions ]; then . ~/.bash_functions; fi
-if [ -f ~/.bash_aliases ]; then . ~/.bash_aliases; fi
 
 # Source any local machine config
 if [ -f "$HOME/.bash_profile.local" ]; then
@@ -12,6 +11,11 @@ fi
 
 # Environment variables
 export PYTHONDONTWRITEBYTECODE=true
+export PATH="$HOME/.local/bin:$PATH"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # HISTORY
 # Eternal history
@@ -30,10 +34,6 @@ shopt -s histappend
 
 # Source git bash completion
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-[ -f /usr/share/google-cloud-sdk/completion.bash.inc ] && . /usr/share/google-cloud-sdk/completion.bash.inc
-
-# Autojump
-[ -f /usr/share/autojump/autojump.bash ] && . /usr/share/autojump/autojump.bash
 
 # oh-my-posh shell
 eval "$(oh-my-posh --init --shell bash --config ${HOME}/.prompt/catppuccin_frappe.omp.json)"
