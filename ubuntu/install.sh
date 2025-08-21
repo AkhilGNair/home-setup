@@ -15,7 +15,7 @@ msg "Installing bash files"
 mkdir -p "${HOME}/bkp-dotfiles"
 mv ${HOME}/.bash* ${HOME}/bkp-dotfiles 2>/dev/null || true
 # Install the new ones
-cp ${repo}/dotfiles/ubuntu/.bash* ${HOME}
+cp ${repo}/ubuntu/.bash* ${HOME}
 # Replace the important old files if they existed
 cp ${HOME}/bkp-dotfiles/.bash_history ${HOME} || true
 cp ${HOME}/bkp-dotfiles/.bash_profile.local ${HOME} || true
@@ -23,10 +23,10 @@ cp ${HOME}/bkp-dotfiles/.bash_profile.local ${HOME} || true
 # Install .gitconfig
 msg "Installing git files"
 mv ${HOME}/.gitconfig ${HOME}/bkp-dotfiles 2>/dev/null || true
-cp ${repo}/dotfiles/ubuntu/.gitconfig ${HOME}
+cp ${repo}/ubuntu/.gitconfig ${HOME}
 
 # Faster reverse search
-cp ${repo}/dotfiles/ubuntu/.inputrc ${HOME}
+cp ${repo}/ubuntu/.inputrc ${HOME}
 
 # Install nvm and node
 PROFILE=/dev/null bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash'
@@ -45,7 +45,7 @@ rm /tmp/font.zip
 
 echo "Installing custom prompt theme"
 mkdir -p ${HOME}/.prompt/
-cp ${repo}/dotfiles/ubuntu/catppuccin_frappe.omp.json ${HOME}/.prompt/
+cp ${repo}/ubuntu/catppuccin_frappe.omp.json ${HOME}/.prompt/
 
 msg "Reloading bashrc"
 source "${HOME}/.bashrc"
